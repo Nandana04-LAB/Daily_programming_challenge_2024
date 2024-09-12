@@ -1,0 +1,25 @@
+def merge(arr1, arr2, m, n):
+    i = m - 1  # Pointer for the last element of arr1
+    j = 0      # Pointer for the first element of arr2
+    
+    # Compare the last element of arr1 with the first element of arr2
+    while i >= 0 and j < n:
+        if arr1[i] > arr2[j]:
+            # Swap the elements
+            arr1[i], arr2[j] = arr2[j], arr1[i]
+        
+        # Re-sort arr1 and arr2 to maintain sorted order
+        i -= 1
+        j += 1
+    
+    # Sort both arrays to ensure they remain sorted after the merge
+    arr1.sort()
+    arr2.sort()
+
+# Example usage
+arr1 = [1, 3, 5, 7]
+arr2 = [2, 4, 6, 8]
+merge(arr1, arr2, len(arr1), len(arr2))
+
+print("arr1:", arr1)
+print("arr2:", arr2)
