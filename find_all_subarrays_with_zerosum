@@ -1,0 +1,32 @@
+def find_zero_sum_subarrays(arr):
+    # Dictionary to store cumulative sum and the list of indices where it occurs
+    cum_sum_map = {}
+    cum_sum = 0
+    result = []
+    
+    # Traverse the array
+    for i in range(len(arr)):
+        cum_sum += arr[i]  # Update the cumulative sum
+        
+        # If the cumulative sum is zero, we found a subarray from the beginning to i
+        if cum_sum == 0:
+            result.append((0, i))
+        
+        # If this cumulative sum has been seen before, all subarrays between
+        # the previous indices and the current index sum to zero
+        if cum_sum in cum_sum_map:
+            for start_index in cum_sum_map[cum_sum]:
+                result.append((start_index + 1, i))
+        
+        # Store this cumulative sum in the dictionary
+        if cum_sum in cum_sum_map:
+            cum_sum_map[cum_sum].append(i)
+        else:
+            cum_sum_map[cum_sum] = [i]
+    
+    return result
+
+# Test cases
+print(find_zero_sum_subarrays([1, 2, -3, 3, -1, 2]))  # Output: [(0, 2), (2, 3)]
+print(find_zero_sum_subarrays([3, 4, -7, 1, 3, 3, -6]))  # Output: [(0, 2), (1, 4), (0, 6)]
+print(find_zero_sum_subarrays([1, 2, 3]))  # Output: []
